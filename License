@@ -1,0 +1,41 @@
+This project is open-sourced under the MIT License. You are free to use, modify, and distribute this code for learning or even launching your own meme coin (at your own risk). Enjoy the magic of coding and crypto!
+kotlin
+Kopiuj
+Edytuj
+
+## contracts/CitakCoin.sol
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+// Import the OpenZeppelin ERC20 and Ownable contracts. 
+// ERC20 provides standard token functions (transfer, balanceOf, etc.)
+// Ownable provides basic authorization control (owner account with exclusive access to specific functions).
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+/**
+ * @title CitakCoin
+ * @dev Citak Coin is a basic BEP-20 (ERC-20) token for educational purposes.
+ * It extends OpenZeppelin's ERC20 implementation and mints an initial supply to the contract deployer.
+ */
+contract CitakCoin is ERC20, Ownable {
+
+    /**
+     * @dev Constructor that mints the initial supply of tokens to the deployer (contract owner).
+     * @param initialSupply The initial supply of tokens (in whole units, without considering decimals).
+     * 
+     * Note: The total supply in the token contract will be `initialSupply * 10^decimals()`.
+     * For example, if initialSupply is 1000 and decimals() is 18, the total tokens created 
+     * will be 1000 * 10^18.
+     */
+    constructor(uint256 initialSupply) ERC20("Citak Coin", "CITAK") {
+        // Mint the initial supply to the deployer's address.
+        // Here, msg.sender is the account that deploys the contract.
+        _mint(msg.sender, initialSupply * 10 ** decimals());
+    }
+
+    // Additional functions (if any) could be added here.
+    // For example, the owner (deployer) could have functions to distribute tokens, etc.
+}
